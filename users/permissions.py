@@ -1,13 +1,20 @@
 from rest_framework import permissions
 
-class IsSuperAdmin(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.role == 'super_admin'
+class RolePermission(permissions.BasePermission):
+    def __init__(self, allowed_roles):
+        self.allowed_roles = allowed_roles
 
-class IsCounsellor(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user and request.user.role == 'counsellor'
+        return request.user and request.user.role in self.allowed_roles
 
-class IsClient(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.role == 'client'
+class IsSuperAdmin(RolePermission):
+    def __init__(self):
+        super().__init__(['super_admin'])
+
+class IsCounsellor(RolePermission):
+    def __init__(self):
+        super().__init__(['counsellor'])
+
+class IsClient(RolePermission):
+    def __init__(self):
+        super().__init__(['client'])
