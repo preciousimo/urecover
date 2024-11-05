@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'users',
+    'base',
 ]
 
 MIDDLEWARE = [
