@@ -4,7 +4,7 @@ from users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'role', 'counsellor') 
+        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'role', 'counsellor')
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
     def create(self, validated_data):
@@ -22,3 +22,8 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data.pop('password', None)
+        return data
