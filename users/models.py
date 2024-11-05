@@ -26,7 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def save(self, *args, **kwargs):
-        self.full_name = f"{self.first_name} {self.last_name}".strip()
+        if not self.full_name:
+            self.full_name = f"{self.first_name} {self.last_name}".strip()
         super(User, self).save(*args, **kwargs)
 
     @property
@@ -34,5 +35,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return dict(self.ROLE_CHOICES).get(self.role, 'Unknown')
 
     def activate_user(self):
-        self.is_active = True
-        self.save() 
+        if not self.is_active:
+            self.is_active = True
+            self.save()
+
+    def deactivate_user(self):
+        if self.is_active:
+            self.is_active = False
+            self.save()
