@@ -56,33 +56,6 @@ class UserViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_200_OK)
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-class UserCreationViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated, IsSuperAdmin]
-
-    def create(self, request):
-        if request.user.role != 'super_admin':
-            return Response({"detail": "Only Super Admins can create users."}, status=status.HTTP_403_FORBIDDEN)
-
-        role = request.data.get('role')
-        if not role or role not in dict(User.ROLE_CHOICES):
-            return Response({"detail": "Invalid role specified."}, status=status.HTTP_400_BAD_REQUEST)
-
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            # Activate the user
-            user.is_active = True
-            user.save()
-            refresh = RefreshToken.for_user(user)
-            # Pass the request to the post_save signal
-            post_save.send(sender=User, instance=user, created=True, request=request) 
-            return Response({
-
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
     
