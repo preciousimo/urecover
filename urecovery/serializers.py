@@ -34,7 +34,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             dict: The validated data with the user object.
         """
         data = super().validate(attrs)
-        data['user'] = UserSerializer(self.user).data
+        user = self.user  # Get the user object
+        data['user'] = UserSerializer(user).data
         return data
 
 
@@ -55,9 +56,6 @@ class CustomTokenRefreshSerializer(TokenRefreshSerializer):
         """
         data = super().validate(attrs)
         refresh = RefreshToken(attrs['refresh'])
-
-        # Retrieve user using the user_id claim
-        user = User.objects.get(id=refresh['user_id'])
+        user = User.objects.get(id=refresh['user_id'])  # Retrieve user using the user_id claim
         data['user'] = UserSerializer(user).data
-
         return data

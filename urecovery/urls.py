@@ -15,5 +15,4 @@ urlpatterns = [
 
     # Other app URL patterns
     path('api/', include('users.urls')),
-    path('api/', include('base.urls')),
 ]
