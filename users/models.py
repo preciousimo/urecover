@@ -4,7 +4,7 @@ from users.manager import CustomUserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = (
-        ('client', 'Client'),
+        ('user', 'User'),
         ('counsellor', 'Counsellor'),
         ('super_admin', 'Super Admin') 
     )
