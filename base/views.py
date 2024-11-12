@@ -41,7 +41,7 @@ class BookCounselorView(APIView):
                 template_name='counselor_notification',
                 context={'booking': booking},
                 subject=f"New Counseling Session Booking - {booking.counseling_area}",
-                recipient_list=['collegecounselloract@gmail.com']
+                recipient_list=['projosconic99@gmail.com']
             )
             
             return Response(serializer.data, status=status.HTTP_201_CREATED)
