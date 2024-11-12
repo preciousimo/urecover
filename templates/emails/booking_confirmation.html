@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counseling Session Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f6f6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: #5C6BC0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            padding: 30px;
+            color: #333333;
+        }
+        .booking-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666666;
+            font-size: 12px;
+            background: #f9f9f9;
+            border-radius: 0 0 8px 8px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #5C6BC0;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .contact-info {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Counseling Session Booking Confirmation</h1>
+        </div>
+        
+        <div class="content">
+            <h2>Dear {{ booking.first_name }} {{ booking.last_name }},</h2>
+            <p>Thank you for booking a counseling session with us. We have received your booking request and are looking forward to supporting you on your journey.</p>
+
+            <div class="booking-details">
+                <h3>Your Booking Details:</h3>
+                <p><strong>Name:</strong> {{ booking.first_name }} {{ booking.last_name }}</p>
+                <p><strong>Counseling Area:</strong> {{ booking.counseling_area }}</p>
+                <p><strong>Preferred Contact Method:</strong> {{ booking.contact_method }}</p>
+                <p><strong>WhatsApp Number:</strong> {{ booking.whatsapp_number }}</p>
+                <p><strong>Country:</strong> {{ booking.country }}</p>
+                {% if booking.note %}
+                <p><strong>Additional Notes:</strong> {{ booking.note }}</p>
+                {% endif %}
+            </div>
+
+            <p>Our counselor will contact you within 24 hours via your preferred contact method ({{ booking.contact_method }}) to schedule your session.</p>
+
+            <div class="contact-info">
+                <h3>Need to Reschedule or Cancel?</h3>
+                <p>If you need to make any changes to your booking, please contact us:</p>
+                <ul>
+                    <li>Email: support@counselingservice.com</li>
+                    <li>WhatsApp: +1234567890</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {% now "Y" %} Counseling Service. All rights reserved.</p>
+            <p>This email was sent to {{ booking.email }}</p>
+            <p>Please do not reply to this automated email.</p>
+        </div>
+    </div>
+</body>
+</html>

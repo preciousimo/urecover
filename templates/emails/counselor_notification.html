@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Counseling Session Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f6f6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: #5C6BC0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            padding: 30px;
+            color: #333333;
+        }
+        .booking-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666666;
+            font-size: 12px;
+            background: #f9f9f9;
+            border-radius: 0 0 8px 8px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #5C6BC0;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .contact-info {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>New Counseling Session Booking</h1>
+        </div>
+        
+        <div class="content">
+            <h2>New Booking Alert</h2>
+            <p>A new counseling session has been booked. Here are the details:</p>
+
+            <div class="booking-details">
+                <h3>Client Information:</h3>
+                <p><strong>Name:</strong> {{ booking.first_name }} {{ booking.last_name }}</p>
+                <p><strong>Gender:</strong> {{ booking.gender }}</p>
+                <p><strong>Email:</strong> {{ booking.email }}</p>
+                <p><strong>WhatsApp:</strong> {{ booking.whatsapp_number }}</p>
+                <p><strong>Country:</strong> {{ booking.country }}</p>
+                <p><strong>Counseling Area:</strong> {{ booking.counseling_area }}</p>
+                <p><strong>Preferred Contact Method:</strong> {{ booking.contact_method }}</p>
+                {% if booking.note %}
+                <p><strong>Client Notes:</strong> {{ booking.note }}</p>
+                {% endif %}
+            </div>
+
+            <p>Please contact the client within 24 hours via their preferred contact method ({{ booking.contact_method }}).</p>
+        </div>
+        
+        <div class="footer">
+            <p>© {% now "Y" %} Counseling Service. All rights reserved.</p>
+            <p>Internal communication - Please do not forward</p>
+        </div>
+    </div>
+</body>
+</html>
